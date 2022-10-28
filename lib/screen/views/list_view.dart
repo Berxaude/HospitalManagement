@@ -2,10 +2,10 @@
 
 import 'package:flutter/material.dart';
 
-class ListStudentView extends StatelessWidget {
+class ListPatientView extends StatelessWidget {
   List<Map> data;
 
-  ListStudentView({required this.data});
+  ListPatientView({required this.data});
 
   @override
   Widget build(BuildContext context) {

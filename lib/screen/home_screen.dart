@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
         controller: _pageController,
         children: [
           HomeView(),
-          ListStudentView(
+          ListPatientView(
             data: fakedata,
           ),
         ],
