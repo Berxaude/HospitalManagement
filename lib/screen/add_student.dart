@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable, use_key_in_widget_constructors, non_constant_identifier_names
 
+import 'package:exercice/screen/data/fake_data.dart';
+import 'package:exercice/screen/views/list_view.dart';
 import 'package:flutter/material.dart';
 
 class AddStudent extends StatelessWidget {
@@ -11,19 +13,120 @@ class AddStudent extends StatelessWidget {
   String Gender = '';
   String Age = '';
   String Weigth = '';
-  String Height = '';
   String Number = '';
   String Email = '';
+  String Adresse = '';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-            title: const Center(
-          child: Text('ADD NEw PATIENT'),
-        )),
-        body: Column(
+      appBar: AppBar(title: const Center(child: Text('ADDING PATIENT'))),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            children: [
+              Column(
+                children: [
+                  TextField(
+                    keyboardType: TextInputType.text,
+                    onChanged: (newValeur) {
+                      full_name = newValeur;
+                    },
+                    decoration: const InputDecoration(
+                        labelText: "full name", prefixIcon: Icon(Icons.face)),
+                  ),
+                  TextField(
+                    keyboardType: TextInputType.number,
+                    onChanged: (newValeur) {
+                      Age = newValeur;
+                    },
+                    decoration: const InputDecoration(
+                        labelText: "Age", prefixIcon: Icon(Icons.view_agenda)),
+                  ),
+                  TextField(
+                    keyboardType: TextInputType.text,
+                    onChanged: (newValeur) {
+                      Gender = newValeur;
+                    },
+                    decoration: const InputDecoration(
+                        labelText: "Gender", prefixIcon: Icon(Icons.person)),
+                  ),
+                  TextField(
+                    keyboardType: TextInputType.number,
+                    onChanged: (newValeur) {
+                      Weigth = newValeur;
+                    },
+                    decoration: const InputDecoration(
+                        labelText: "Weigth", prefixIcon: Icon(Icons.balance)),
+                  ),
+                  TextField(
+                    keyboardType: TextInputType.number,
+                    onChanged: (newValeur) {
+                      Number = newValeur;
+                    },
+                    decoration: const InputDecoration(
+                        labelText: "Phone number",
+                        prefixIcon: Icon(Icons.phone)),
+                  ),
+                  TextField(
+                    keyboardType: TextInputType.emailAddress,
+                    onChanged: (newValeur) {
+                      Email = newValeur;
+                    },
+                    decoration: const InputDecoration(
+                        labelText: "Email", prefixIcon: Icon(Icons.mail)),
+                  ),
+                ],
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Map new_data = {
+                    "full_name": full_name,
+                    "Age": Age,
+                    "Gender": Gender,
+                    "Email": Email,
+                    "Weigth": Weigth,
+                    "Adresse": Adresse
+                  };
+
+                  if (full_name == '' ||
+                      Age == '' ||
+                      Gender == '' ||
+                      Email == '' ||
+                      'Weigth' == '' ||
+                      'Adresse' == '') {
+                    var snackbar = const SnackBar(
+                      content: Text('Veuillez remplir tous les champs'),
+                      backgroundColor: Colors.red,
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                    return;
+                  }
+
+                  fakedata.add(new_data);
+
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (_) {
+                    return ListPatientView(data: candidates);
+                  }));
+
+                  //navigation
+                },
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                    padding: const EdgeInsets.symmetric(horizontal: 100)),
+                child: const Text(
+                  "Ajouter",
+                  style: TextStyle(color: Colors.black),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+    /*Column(
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -130,6 +233,6 @@ class AddStudent extends StatelessWidget {
               ),
             )
           ],
-        ));
+        ));*/
   }
 }
